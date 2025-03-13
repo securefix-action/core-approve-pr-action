@@ -75,6 +75,19 @@ You don't need to host a server application.
 
 ## Architecture
 
+Securefix Action adopts client/server architecture.
+It uses following GitHub Apps, repositories, and workflows:
+
+- two GitHub Apps
+  - a Server GitHub App: a GitHub App to create commits
+  - a Client GitHub App: a GitHub App to send requests to a server workflow
+- Repositories
+  - a Server repository: a repository where a server workflow works
+  - Client repositories: repositories where client workflows work
+- Workflows
+  - a Server Workflow: Receive requests from client workflows and create commits
+  - a Client Workflow: Request to fix code to the Server Workflow
+
 ![Image](https://github.com/user-attachments/assets/94781831-0aad-4513-ac92-fb5cfa859e19)
 
 - Server: 1 GitHub App, 1 Repository
@@ -83,11 +96,11 @@ You don't need to host a server application.
 ![Image](https://github.com/user-attachments/assets/383de1da-a267-4f96-a86c-9151d66cebc5)
 
 1. The client workflow uploads fixed files and metadata to GitHub Actions Artifacts
-1. The client workflow creates an issue label to the server repository (The label is deleted immediately)
-1. The server workflow is triggered by `label:created` event
-1. The server workflow downloads fixed files and metadata from GitHub Actions Artifacts
-1. The server workflow validates the request
-1. The server workflow pushes a commit to the client repository
+2. The client workflow creates an issue label to the server repository (The label is deleted immediately)
+3. The server workflow is triggered by `label:created` event
+4. The server workflow downloads fixed files and metadata from GitHub Actions Artifacts
+5. The server workflow validates the request
+6. The server workflow pushes a commit to the client repository
 
 ## Getting Started
 
@@ -177,6 +190,8 @@ Then workflows are run and `foo.yaml` is fixed automatically:
 
 ## Actions
 
+Securefix Action composes of four actions:
+
 - [securefix-action/action](docs/client.md) ([action.yaml](action.yaml)): Client action
 - [securefix-action/action/server/prepare](server/prepare) ([action.yaml](server/prepare/action.yaml)): Server action to prepare for creating commits
 - [securefix-action/action/server/commit](server/commit) ([action.yaml](server/commit/action.yaml)): Server action to create commits
@@ -196,6 +211,7 @@ So it doesn't allow attackers to create a malicious commit to a different reposi
 
 ### How to manage a server GitHub App and a server workflow
 
+You must protect a server GitHub App and a server workflow from attacks securely.
 There are several ideas:
 
 - GitHub App Private Key:
