@@ -6,8 +6,4 @@
 
 This composes of following actions:
 
-- [parse-label](parse-label/action.yaml): Parse a label description and output a pull request repository and number
 - [validate](validate/action.yaml): Validate if the pull request should be approved
-- [request](request/action.yaml): Create a label to send a request to a server workflow
-- [approve](approve/action.yaml): Approve a pull request
-- [notify](notify/action.yaml): Notify a failure to a pull request
